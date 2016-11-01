@@ -43,6 +43,7 @@ class php (
   $pear_ensure    = $::php::params::pear_ensure,
   $phpunit        = false,
   $environment    = undef,
+  $manage_curl    = true,
   $extensions     = {},
   $settings       = {},
   $package_prefix = $::php::params::package_prefix,
@@ -56,6 +57,7 @@ class php (
   validate_bool($pear)
   validate_string($pear_ensure)
   validate_bool($phpunit)
+  validate_bool($manage_curl)
   validate_hash($extensions)
   validate_hash($settings)
 
@@ -90,6 +92,7 @@ class php (
     Anchor['php::begin'] ->
       class { '::php::composer':
         environment => $environment,
+        manage_curl => $manage_curl,
       } ->
     Anchor['php::end']
   }

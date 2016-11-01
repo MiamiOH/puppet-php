@@ -18,6 +18,7 @@ class php::composer (
   $source      = $::php::params::composer_source,
   $path        = $::php::params::composer_path,
   $environment = undef,
+  $manage_curl = true,
   $auto_update = true,
   $max_age     = $::php::params::composer_max_age,
   $root_group  = $::php::params::root_group,
@@ -32,7 +33,7 @@ class php::composer (
   validate_bool($auto_update)
   validate_re("x${max_age}", '^x\d+$')
 
-  ensure_packages(['curl'])
+  if $manage_curl { ensure_packages(['curl']) }
 
   exec { 'download composer':
     command     => "curl -L ${source} -o ${path}",
