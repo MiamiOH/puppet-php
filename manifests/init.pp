@@ -42,6 +42,7 @@ class php (
   $pear           = true,
   $pear_ensure    = $::php::params::pear_ensure,
   $phpunit        = false,
+  $environment    = undef,
   $extensions     = {},
   $settings       = {},
   $package_prefix = $::php::params::package_prefix,
@@ -87,7 +88,9 @@ class php (
   }
   if $composer {
     Anchor['php::begin'] ->
-      class { '::php::composer': } ->
+      class { '::php::composer':
+        environment => $environment,
+      } ->
     Anchor['php::end']
   }
   if $pear {

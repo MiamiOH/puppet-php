@@ -22,6 +22,7 @@ class php::composer::auto_update (
   $max_age,
   $source,
   $path,
+  $environment,
 ) {
 
   if $caller_module_name != $module_name {
@@ -29,7 +30,8 @@ class php::composer::auto_update (
   }
 
   exec { 'update composer':
-    command => "wget ${source} -O ${path}",
+    command => "curl -L ${source} -o ${path}",
+    environment => $environment,
     onlyif  => "test `find '${path}' -mtime +${max_age}`",
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
     require => File[$path],
