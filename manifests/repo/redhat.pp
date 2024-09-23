@@ -28,11 +28,11 @@ class php::repo::redhat (
   }
 
   yumrepo { $yum_repo:
-    descr      => "Remi's ${yum_repo.match('php.+$')[0].strip} RPM repository for Enterprise Linux \$releasever - \$basearch",
-    baseurl    => "https://rpms.remirepo.net/enterprise/${releasever}/${yum_repo.match('php.+$')[0].strip}${mirror_urlappend}",
-    enabled    => 1,
-    gpgcheck   => 1,
-    gpgkey     => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi2023',
-    priority   => 1,
+    descr    => "Remi's ${yum_repo.match('php.+$')[0].strip} RPM repository for Enterprise Linux \$releasever - \$basearch",
+    baseurl  => "https://rpms.remirepo.net/enterprise/${releasever}/${yum_repo.match('php.+$')[0].strip}${mirror_urlappend}",
+    enabled  => 1,
+    gpgcheck => 1,
+    gpgkey   => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi2023',
+    priority => 1,
   }
 }
