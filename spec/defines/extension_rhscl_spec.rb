@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'php::extension' do
   on_supported_os.each do |os, facts|
-    next unless facts[:osfamily] == 'RedHat' || facts[:osfamily] == 'CentOS'
+    next unless facts[:os]['family'] == 'RedHat' || facts[:os]['family'] == 'CentOS'
 
     context "on #{os}" do
       let :facts do
@@ -17,11 +17,11 @@ describe 'php::extension' do
         configs_root = "/etc/opt/#{rhscl_mode}/#{scl_php_version}"
 
         let(:pre_condition) do
-          "class {'::php::globals':
+          "class {'php::globals':
                     php_version => '#{scl_php_version}',
                     rhscl_mode => '#{rhscl_mode}'
           }->
-          class {'::php':
+          class {'php':
                    ensure         => installed,
                    manage_repos   => false,
                    fpm            => false,
