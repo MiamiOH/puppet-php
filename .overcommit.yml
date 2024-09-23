@@ -43,12 +43,10 @@ PreCommit:
     enabled: true
     description: 'Runs rubocop on modified files only'
     command: ['bundle', 'exec', 'rubocop']
-  RakeTarget:
+  PuppetLint:
     enabled: true
-    description: 'Runs lint on modified files only'
-    targets:
-      - 'lint'
-    command: ['bundle', 'exec', 'rake']
+    description: 'Runs puppet-lint on modified files only'
+    command: ['bundle', 'exec', 'puppet-lint']
   YamlSyntax:
     enabled: true
   JsonSyntax:
