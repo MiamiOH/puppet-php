@@ -17,13 +17,18 @@ class php::repo::redhat (
     '8'     => '/$basearch',
     default => undef,
   }
+  $remi_gpgkey = $facts['os']['release']['major'] ? {
+    '8'     => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi2018',
+    '9'     => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi2021',
+    default => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi',
+  }
 
   yumrepo { 'remi':
     descr      => 'Remi\'s RPM repository for Enterprise Linux $releasever - $basearch',
     mirrorlist => "https://rpms.remirepo.net/enterprise/${releasever}/remi${mirror_urlappend}/mirror",
     enabled    => 1,
     gpgcheck   => 1,
-    gpgkey     => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi',
+    gpgkey     => $remi_gpgkey,
     priority   => 1,
   }
 
@@ -32,7 +37,7 @@ class php::repo::redhat (
     baseurl  => "https://rpms.remirepo.net/enterprise/${releasever}/${yum_repo.match('php.+$')[0].strip}${mirror_urlappend}",
     enabled  => 1,
     gpgcheck => 1,
-    gpgkey   => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi2023',
+    gpgkey   => $remi_gpgkey,
     priority => 1,
   }
 }
